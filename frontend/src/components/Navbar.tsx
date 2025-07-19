@@ -1,6 +1,5 @@
-import { Link, redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
-  Home,
   Info,
   Briefcase,
   BookOpen,

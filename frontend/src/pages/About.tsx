@@ -1,5 +1,5 @@
 import React from "react";
-import { ShieldCheck, Target, Star, Users } from "lucide-react";
+import { ShieldCheck, Target, Star } from "lucide-react";
 import person1  from "../assets/pexels-chloekalaartist-1043474.jpg"
 import person2  from "../assets/pexels-olly-733872.jpg"
 
