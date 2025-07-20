@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
-import { LogIn } from 'lucide-react';
+import React, { use, useEffect, useState } from "react";
+import { LogIn } from "lucide-react";
+import { redirect, useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const navigate = useNavigate();
+
+  
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  
     // TODO
-    console.log('Logging in:', {name, email, password });
+          navigate("/");
+
+    localStorage.setItem("userData", JSON.stringify({ name, email, password }));
+    console.log("Logging in:", { name, email, password });
   };
 
   return (
@@ -21,7 +28,12 @@ const Login: React.FC = () => {
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Name
+            </label>
             <input
               id="name"
               type="text"
@@ -32,8 +44,13 @@ const Login: React.FC = () => {
             />
           </div>
 
-           <div>
-            <label htmlFor="Email" className="block text-sm font-medium text-gray-700">Email</label>
+          <div>
+            <label
+              htmlFor="Email"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Email
+            </label>
             <input
               id="email"
               type="email"
@@ -44,7 +61,12 @@ const Login: React.FC = () => {
             />
           </div>
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Password
+            </label>
             <input
               id="password"
               type="password"
