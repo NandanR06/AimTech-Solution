@@ -3,7 +3,7 @@ import { Quote, Briefcase, Code, Server } from 'lucide-react';
 
 const Home: React.FC = () => {
   return (
-    <div className="pt-[75px] font-sans bg-gray-100 text-gray-800">
+    <div className="md:pt-[75px]  font-sans bg-gray-100 text-gray-800">
       {/* Hero Section */}
       <section className="bg-[#0F172A] text-white py-28 px-4 text-center">
         <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">
