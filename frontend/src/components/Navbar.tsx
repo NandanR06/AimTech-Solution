@@ -90,7 +90,7 @@ export default function Navbar() {
         </button>
         <ul className="flex flex-col space-y-4 p-4">
           {Object.values(NavbarItem).map((item: any) => (
-            <li
+            <li onClick={handleMenu}
               key={item.name}
               className="text-lg flex item-center justify-space-around gap-2  hover:text-gray-400 transition-colors duration-200 cursor-pointer hover:bg-gray-800 p-2 rounded px-5"
             >
