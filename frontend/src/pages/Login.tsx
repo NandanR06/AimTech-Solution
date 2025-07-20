@@ -1,6 +1,6 @@
-import React, { use, useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { LogIn } from "lucide-react";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -10,7 +10,7 @@ const Login: React.FC = () => {
 
   
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = () => {
   
     // TODO
           navigate("/");
