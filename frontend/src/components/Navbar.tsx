@@ -48,7 +48,8 @@ const NavbarItem = {
     name: "Career",
     redirect: "/career",
     icon: <User />,
-  },
+  }
+  
 };
 
 export default function Navbar() {
@@ -72,7 +73,19 @@ export default function Navbar() {
             </li>
           ))}
         </ul>
+
+       
       </div>
+
+       <div>
+          <Link 
+            to="/login"
+            className="text-lg hidden  md:flex  item-center bg-white text-gray-800 mr-5 justify-space-around gap-2 hover:text-gray-400 transition-colors duration-200 cursor-pointer hover:bg-gray-800 p-2 rounded px-5 "
+          >
+            <span className="ml-2"><User /></span>
+            Login
+          </Link>
+        </div>
 
       <Menu
         className={`md:hidden  ${!isOpen ? "block" : "hidden "} `}
@@ -99,6 +112,16 @@ export default function Navbar() {
             </li>
           ))}
         </ul>
+        <div>
+          <Link onClick={handleMenu}
+            to="/login"
+            className="text-lg flex item-center bg-white text-gray-800 mr-5 justify-space-around gap-2 hover:text-gray-400 transition-colors duration-200 cursor-pointer hover:bg-gray-800 p-2 rounded px-5 "
+          >
+            <span className="ml-2"><User /></span>
+            Login
+          </Link>
+        </div>
+        
       </div>
     </nav>
   );
