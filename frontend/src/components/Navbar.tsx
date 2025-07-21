@@ -105,7 +105,7 @@ export default function Navbar() {
           <span className="ml-2">
             <User />
           </span>
-          ogin
+          Login
         </Link>
       </div>
 
