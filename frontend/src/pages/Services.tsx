@@ -47,11 +47,11 @@ const Services: React.FC = () => {
           Empowering businesses with tailored tech solutions.
         </p>
       </div>
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
+      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto ">
         {services.map((service, index) => (
           <div
             key={index}
-            className="bg-gray-50 p-6 rounded-xl shadow-md hover:shadow-lg transition"
+            className="bg-gray-50 p-6 rounded-xl shadow-md hover:shadow-lg transition hover:scale-110  transform-transition duration-300"
           >
             <div className="flex items-center gap-4 mb-4">
               {service.icon}

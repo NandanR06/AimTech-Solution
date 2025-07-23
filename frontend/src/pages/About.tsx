@@ -29,10 +29,10 @@ const teamMembers = [
 
       {/* Vision & Mission */}
       <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto mb-16 text-gray-800 mt-[95px]">
-        <div className="text-center mb-8 md:mb-0 border  rounded-lg bg-gray-50 shadow hover:shadow-lg transition duration-200  p-10 flex flex-col items-center">
+        <div className="text-center mb-8 md:mb-0 border   hover:scale-110  transform-transition  rounded-lg bg-gray-50 shadow hover:shadow-lg transition duration-200  p-10 flex flex-col items-center">
                      <Target size={40} className="text-blue-600" />
 
-          <h3 className="text-2xl font-semibold mb-2  flex justify-center items-center  item-center">
+          <h3 className="text-2xl font-semibold mb-2  flex justify-center items-center  item-center ">
             <h1> Our Vision</h1>
           </h3>
           <p className="text-gray-600 text-center">
@@ -40,7 +40,7 @@ const teamMembers = [
             businesses operate in a digital-first world.
           </p>
         </div>
-        <div className="text-center mb-8 md:mb-0 border  rounded-lg bg-gray-50 shadow hover:shadow-lg transition duration-200  p-10 flex flex-col items-center">
+        <div className="text-center mb-8 md:mb-0 border  hover:scale-110  transform-transition   rounded-lg bg-gray-50 shadow hover:shadow-lg transition duration-200  p-10 flex flex-col items-center">
                       <ShieldCheck size={40} className="text-green-600" />
 
           <h3 className="text-2xl font-semibold mb-2  flex justify-center items-center  item-center">
@@ -61,7 +61,7 @@ const teamMembers = [
             (value, index) => (
               <div
                 key={index}
-                className="bg-gray-100 px-6 py-4 rounded-xl shadow w-48 text-center"
+                className="bg-gray-100 px-6 py-4 rounded-xl shadow w-48 text-center  hover:scale-110  transform-transition duration-300"
               >
                 <Star className="text-yellow-500 mx-auto mb-2" />
                 <p className="font-semibold">{value}</p>
@@ -77,10 +77,10 @@ const teamMembers = [
           Why Choose AimTech?
         </h3>
         <ul className="grid  gap-4 text-gray-600 text-lg text-left">
-          <li className="p-3 md:text-[20px]  bg-gray-50 px-20 hover:shadow rounded  ">Client-Centric Approach with Tailored Solutions</li>
-          <li className="p-3 md:text-[20px] bg-gray-50 px-20 hover:shadow rounded ">Experienced Professionals in Web, DevOps, and Automation</li>
-          <li className="p-3 md:text-[20px] bg-gray-50 px-20 hover:shadow rounded ">Fast Turnaround Times with High-Quality Delivery</li>
-          <li className="p-3 md:text-[20px] bg-gray-50 px-20 hover:shadow rounded ">Dedicated Post-Deployment Support</li>
+          <li className="p-3 md:text-[20px]  bg-gray-50 px-20 hover:shadow rounded  hover:scale-105  transform-transition duration-300 ">Client-Centric Approach with Tailored Solutions</li>
+          <li className="p-3 md:text-[20px] bg-gray-50 px-20 hover:shadow rounded  hover:scale-105 transform-transition duration-300">Experienced Professionals in Web, DevOps, and Automation</li>
+          <li className="p-3 md:text-[20px] bg-gray-50 px-20 hover:shadow rounded  hover:scale-105  transform-transition duration-300">Fast Turnaround Times with High-Quality Delivery</li>
+          <li className="p-3 md:text-[20px] bg-gray-50 px-20 hover:shadow rounded  hover:scale-105  transform-transition duration-300 ">Dedicated Post-Deployment Support</li>
         </ul>
       </div>
 
@@ -91,7 +91,6 @@ const teamMembers = [
           {teamMembers.map((member,id) => (
             <div key={id} className="w-48 p-4  text-center flex justify-between flex-col items-center ">
               <img src={member.image} alt="" className="w-44 h-44 mx-auto rounded-full bg-gray-300 mb-2" />
-              <p className="font-semibold">{member.id}</p>
               <p className="text-sm text-gray-500">{member.name}</p>
                <p className="text-sm text-gray-500">{member.role}</p>
 
