@@ -15,29 +15,30 @@ const allowedOrigin = "https://aimtech-solution.onrender.com";
 
 app.use(
   cors({
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     origin: allowedOrigin,
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    optionsSuccessStatus: 200,
   })
 );
-app.use(cookieParser());
 
+app.use(cookieParser());
 app.use(express.json());
+
 app.get("/nandan", (req, res) => {
   res.send("Hello World!");
 });
+
+// Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URL, {})
-  .then(() => {
-    console.log("Connected to MongoDB");
-  })
-  .catch((error) => {
-    console.error("Error connecting to MongoDB:", error);
-  });
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error("MongoDB connection error:", err));
 
+// Routes
 app.use("/user", userRouter);
 app.use("/auth", authorizedRouter);
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
