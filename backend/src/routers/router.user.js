@@ -1,15 +1,16 @@
 import { Router } from "express";
-import bcrypt from "bcryptjs"; // You must install this: npm install bcryptjs
+import bcrypt from "bcryptjs"; 
 import USER from "../model/model.user.js";
+import jwt from "jsonwebtoken";
 
 const userRouter = Router();
 
 // User SignUp
 userRouter.post("/signUp", async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { name, email, password } = req.body;
 
-    if (!username || !email || !password) {
+    if (!name || !email || !password) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
@@ -18,7 +19,7 @@ userRouter.post("/signUp", async (req, res) => {
       return res.status(400).json({ message: "User Email already exists" });
     }
 
-    const existingUser = await USER.findOne({ name: username });
+    const existingUser = await USER.findOne({ name: name });
     if (existingUser) {
       return res.status(400).json({ message: "Username already exists" });
     }
@@ -26,7 +27,7 @@ userRouter.post("/signUp", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new USER({
-      name: username,
+      name: name,
       email,
       password: hashedPassword,
     });
@@ -50,6 +51,10 @@ userRouter.post("/signIn", async (req, res) => {
     }
 
     if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
+
+      const token = jwt.sign({ email: process.env.ADMIN_EMAIL }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIR });
+      res.cookie('token', token, { httpOnly: true, secure: true });
+
       return res.status(200).json({ admin: true, message: "Admin credentials" });
     }
 
@@ -63,9 +68,23 @@ userRouter.post("/signIn", async (req, res) => {
       return res.status(401).json({ message: "Invalid password" });
     }
 
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIR});
+      res.cookie('token', token, { httpOnly: true, secure: true });
+
     res.status(200).json({ message: "User signed in successfully", user });
   } catch (error) {
     console.error("Error in user signIn:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+// User SignOut
+userRouter.get("/signout", (req, res) => {
+  try {
+    res.clearCookie('token');
+    res.status(200).json({ message: "User signed out successfully" });
+  } catch (error) {
+    console.error("Error in user signOut:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
