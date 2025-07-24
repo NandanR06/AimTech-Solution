@@ -1,5 +1,5 @@
 import mogoose from 'mongoose';
-import bcrypt from 'bcryptjs';
+
 
 const userSchema = new mogoose.Schema({
     name: {
