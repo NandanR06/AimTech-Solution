@@ -11,6 +11,9 @@ import {
   Quote,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import AxiosInstance from "../utility/Axios";
+import { toast } from "react-toastify";
+
 
 const NavbarItem = {
   About: {
@@ -52,22 +55,44 @@ const NavbarItem = {
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [userData, setUserData] = useState(false);
+  const [signedOut, setSignedOut] = useState(false);
 
   useEffect(() => {
-    const storedData = localStorage.getItem("userData");
-    if (storedData) {
-      setUserData(true);
-    } else {
-      alert("No user data found. Please log in.");
-      setUserData(false);
-    }
-  }, [userData]);
-
-  console.log("User Data:", userData);
+    const signedOutInfo = async () => {
+      console.log("Checking signed out status...");
+      const res = await AxiosInstance.get("/auth/authorized", {
+        withCredentials: true,
+      });
+      if (res.status === 200) {
+        setSignedOut(true);
+      } else {
+        setSignedOut(false);
+      }
+    };
+    signedOutInfo();
+  }, [signedOut]);
 
   const handleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleSignOut = async () => {
+    try {
+      const res = await AxiosInstance.get("/user/signout", {
+        withCredentials: true,
+      });
+      if (res.status === 200) {
+        toast.success("Signed out successfully");
+
+        console.log("User signed out successfully");
+
+        setSignedOut(true);
+        window.location.href = "/login";
+        console.error("Sign out failed:", res.data);
+      }
+    } catch (error) {
+      console.error("Error during sign out:", error);
+    }
   };
 
   return (
@@ -77,17 +102,17 @@ export default function Navbar() {
       </Link>
       <div className="space-x-4">
         <ul
-          className={`${
-            userData
-              ? "hidden md:flex flex-row space-y-4 p-4 items-center justify-between"
-              : "hidden"
-          }`}
+                   className={`${"hidden md:flex flex-row space-y-4 p-4 items-center justify-between "}`}
+
         >
-          {Object.values(NavbarItem).map((item: any) => (
+          {Object.values(NavbarItem).map((item: any, index: number) => (
             <li
               key={item.name}
-              className="text-lg flex item-center justify-space-around gap-2 hover:text-gray-400 transition-colors duration-200 cursor-pointer hover:bg-gray-800 p-2 rounded px-5"
-            >
+ className={`${
+      index === 0
+        ? " pt-6 text-lg flex items-center justify-between gap-2 hover:text-gray-400 transition-colors duration-200 cursor-pointer hover:bg-gray-800 p-2 rounded px-5"
+        : "text-lg flex items-center justify-between gap-2 hover:text-gray-400 transition-colors duration-200 cursor-pointer hover:bg-gray-800 p-2 rounded px-5"
+    }`}            >
               <Link to={item.redirect || "#"}>{item.name}</Link>
             </li>
           ))}
@@ -97,16 +122,18 @@ export default function Navbar() {
       <div
         
       >
-        <Link to="/login" className={`${
-          userData
-            ? "hidden"
-            : "hidden text-lg md:flex item-center bg-white text-gray-800 mr-5 justify-space-around gap-2 hover:text-gray-400 transition-colors duration-200 cursor-pointer hover:bg-gray-800 p-2 rounded px-5"
-        }`}>
+        <div           onClick={handleSignOut}
+   className={`${
+            !signedOut
+              ? "hidden"
+              : "hidden text-lg md:flex item-center bg-white text-gray-800 mr-5 justify-space-around gap-2 hover:text-gray-400 transition-colors duration-200 cursor-pointer hover:bg-gray-800 p-2 rounded px-5"
+          }`}
+        >
           <span className="ml-2">
             <User />
           </span>
-          Login
-        </Link>
+          Sign Out
+        </div>
       </div>
 
       <Menu
@@ -114,15 +141,16 @@ export default function Navbar() {
         onClick={handleMenu}
       />
       <div
-        className={`${
-          !isOpen ? "hidden" : "block space-x-4 md:hidden  absolute right-0 top-4 bg-gray-900 h-screen transition-transform duration-300 ease-in-out transform translate-x-0  "
+       className={`${
+          !isOpen
+            ? "hidden"
+            : "block space-x-4 md:hidden  absolute right-0 top-4 bg-gray-900 h-screen transition-transform duration-300 ease-in-out transform translate-x-0  "
         }   `}
       >
         <button className="text-white hover:text-gray-400 ml-4">
           <X onClick={handleMenu} />
         </button>
-        <ul
-          className={`${userData ? "flex flex-col space-y-4 p-4" : "hidden"}`}
+        <ul className={`flex flex-col space-y-4 p-4`}
         >
           {Object.values(NavbarItem).map((item: any) => (
             <li
@@ -137,17 +165,17 @@ export default function Navbar() {
         </ul>
         <div
           className={`${
-            userData
+            !signedOut
               ? "hidden"
               : "text-lg flex item-center bg-white text-gray-800 mr-5 justify-space-around gap-2 hover:text-gray-400 transition-colors duration-200 cursor-pointer hover:bg-gray-800 p-2 rounded px-5"
           }`}
         >
-          <Link onClick={handleMenu} to="/login">
+          <div onClick={handleSignOut} className="flex items-center " >
             <span className="ml-2">
               <User />
             </span>
-            Login
-          </Link>
+            Sign Out
+          </div>
         </div>
       </div>
     </nav>
