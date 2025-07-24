@@ -11,6 +11,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 const allowedOrigin = "https://aimtech-solution.onrender.com";
+// const allowedOrigin = "http://localhost:5173"; 
 
 
 app.use(

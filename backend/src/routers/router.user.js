@@ -53,7 +53,8 @@ userRouter.post("/signIn", async (req, res) => {
     if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
 
       const token = jwt.sign({ email: process.env.ADMIN_EMAIL }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIR });
-      res.cookie('token', token, { httpOnly: true, secure: true });
+      res.cookie('token', token, { httpOnly: true, secure: true ,  sameSite: 'None'
+});
 
       return res.status(200).json({ admin: true, message: "Admin credentials" });
     }
@@ -69,7 +70,8 @@ userRouter.post("/signIn", async (req, res) => {
     }
 
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIR});
-      res.cookie('token', token, { httpOnly: true, secure: true });
+      res.cookie('token', token, { httpOnly: true, secure: true ,  sameSite: 'None'
+});
 
     res.status(200).json({ message: "User signed in successfully", user });
   } catch (error) {
