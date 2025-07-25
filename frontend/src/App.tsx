@@ -13,13 +13,19 @@ import Portpolio from "./pages/Portpolio";
 import Footer from "./components/Footer";
 import SignUp from "./pages/SignUp";
 import { useEffect, useState } from "react";
-import AxiosInstance from "./utility/Axios"
-import ProtectedPage from "./components/ProtectedPage"
+import AxiosInstance from "./utility/Axios";
+import ProtectedPage from "./components/ProtectedPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AccountSettings from "./components/component.admin/AccountSettings";
+import BlogPosts from "./components/component.admin/BlogPosts";
+import CareerApplications from "./components/component.admin/CareerApplications";
+import ManagePortfolio from "./components/component.admin/ManagePortfolio";
+import Messages from "./components/component.admin/Messages";
+import UpdateServices from "./components/component.admin/UpdateServices";
 
 export default function App() {
- const [authorized, setAuthorized] = useState<boolean | null>(null); // null = loading
+  const [authorized, setAuthorized] = useState<boolean | null>(null); // null = loading
 
   useEffect(() => {
     const checkAuthorization = async () => {
@@ -41,9 +47,9 @@ export default function App() {
   }, []);
 
   if (authorized === null) return <div>Loading...</div>;
-   return(
+  return (
     <div>
-            <ToastContainer position="top-right" autoClose={3000} />
+      <ToastContainer position="top-right" autoClose={3000} />
       <Navbar />
       <Routes>
         <Route
@@ -110,6 +116,8 @@ export default function App() {
             </ProtectedPage>
           }
         />
+
+        {/* admin pannel */}
         <Route
           path="/admin"
           element={
@@ -117,13 +125,66 @@ export default function App() {
               <Admin />
             </ProtectedPage>
           }
-        />
-        
+        >
+          <Route
+            path="BlogPosts"
+            element={
+              <ProtectedPage>
+                <BlogPosts />
+              </ProtectedPage>
+            }
+          />
+
+          <Route
+            path="CareerApplication"
+            element={
+              <ProtectedPage>
+                <CareerApplications />
+              </ProtectedPage>
+            }
+          />
+
+          <Route
+            path="manageProfile"
+            element={
+              <ProtectedPage>
+                <ManagePortfolio />
+              </ProtectedPage>
+            }
+          />
+
+          <Route
+            path="messages"
+            element={
+              <ProtectedPage>
+                <Messages />
+              </ProtectedPage>
+            }
+          />
+          <Route
+            path="UpdateServices"
+            element={
+              <ProtectedPage>
+                {" "}
+                <UpdateServices />
+              </ProtectedPage>
+            }
+          />
+
+          <Route
+            path="AccountSetteng"
+            element={
+              <ProtectedPage>
+                <AccountSettings />
+              </ProtectedPage>
+            }
+          />
+        </Route>
+
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
       <Footer />
-
     </div>
-   );
+  );
 }
