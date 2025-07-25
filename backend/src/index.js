@@ -22,7 +22,7 @@ const PORT = process.env.PORT || 3000;
 // Set the allowed origin for CORS
 const allowedOrigin = process.env.NODE_ENV === 'Development' 
   ? "http://localhost:5173" 
-  : "https://aimtech-solution.onrender.com"; 
+  : "https://aimtech-rbi8.onrender.com"; 
 
 
 app.use(
