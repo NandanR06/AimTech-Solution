@@ -5,6 +5,13 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import authorizedRouter from "./routers/router.authorized.js";
 import cookieParser from "cookie-parser";
+import path from 'path'
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+
 
 dotenv.config();
 
@@ -39,6 +46,19 @@ mongoose
 // Routes
 app.use("/user", userRouter);
 app.use("/auth", authorizedRouter);
+
+
+// Serve frontend (after your API routes)
+app.use(express.static(path.join(__dirname, '../../frontend/dist')));
+
+
+try {
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'));
+  });
+} catch (err) {
+  console.error("Catch-all route failed:", err);
+}
 
 
 app.listen(PORT, () => {
