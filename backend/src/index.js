@@ -17,8 +17,12 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
- const allowedOrigin = "https://aimtech-solution.onrender.com";
-// const allowedOrigin = "http://localhost:5173"; 
+
+
+// Set the allowed origin for CORS
+const allowedOrigin = process.env.NODE_ENV === 'Development' 
+  ? "http://localhost:5173" 
+  : "https://aimtech-solution.onrender.com"; 
 
 
 app.use(

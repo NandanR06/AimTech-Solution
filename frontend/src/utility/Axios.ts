@@ -1,9 +1,12 @@
 import axios from "axios";
 
+const url =
+  import.meta.env.VITE_BASE_URL === "Development"
+    ? "http://localhost:3000"
+    : "https://aimtech-zro3.onrender.com";
 const AxiosInstance = axios.create({
-   baseURL: "https://aimtech-zro3.onrender.com",
-  // baseURL: "http://localhost:3000", 
-  withCredentials: true, 
+  baseURL: url,
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
   },
